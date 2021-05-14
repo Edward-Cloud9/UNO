@@ -256,23 +256,23 @@ void takeTurn(std::vector<Card*> &deck, std::vector<Card*> &hand, std::vector<Ca
                                 {
                                     case 1:
                                         std::cout << "You Choose RED";
-                                        temp->setColorbyWild(1);
+                                        temp->setColor(Color(RED));
                                         break;
                                     case 2:
                                         std::cout << "You Choose BLUE";
-                                        temp->setColorbyWild(2);
+                                        temp->setColor(Color(BLUE));
                                         break;
                                     case 3:
                                         std::cout << "You Choice GREEN";
-                                        temp->setColorbyWild(3);
+                                        temp->setColor(Color(GREEN));
                                         break;
                                     case 4:
                                         std::cout << "You Choice YELLOW";
-                                        temp->setColorbyWild(4);
+                                        temp->setColor(Color(YELLOW));
                                         break;
                                     default:
                                         std::cout << "Wrong input! Default choice is RED";
-                                        temp->setColorbyWild(1);
+                                        temp->setColor(Color(RED));
                                         break;
                                 }
                         default: 

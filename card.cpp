@@ -16,19 +16,19 @@ int Card::setColorbyWild(int x) const {
     
     if(x = 1)
     {
-        return Color(1);
+        return Color(RED);
     }
     else if(x = 2)
     {
-        return Color(2);
+        return Color(BLUE);
     }
     else if(x = 3)
     {
-        return Color(3);
+        return Color(GREEN);
     }
     else if(x = 4)
     {
-        return Color(4);
+        return Color(YELLOW);
     }
 }
 
