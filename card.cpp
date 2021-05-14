@@ -8,6 +8,10 @@ int Card::getNumber() const {
     return number;
 }
 
+int Card::getWildCard() const {
+    return wildc;
+}
+
 void Card::setColor(Color c) {
     color = c;
 }
@@ -31,9 +35,10 @@ NumberCard::NumberCard(Color c, int n) {
     setWildC(w);
 }*/
 
-NumberCard::NumberCard(WildC w, int n)  {
+WildCard::WildCard(Color c, WildC w)  {
+    setColor(c);
     setWildC(w);
-    setNumber(n);
+    //setNumber(n);
 }
 
 std::string NumberCard::render(int line) const {
@@ -47,7 +52,7 @@ std::string NumberCard::render(int line) const {
         case 1: return "|           |";
         
         case 2:
-            if(number > 9)
+            /*if(number > 9)
             {
                 switch(number)
                 {
@@ -71,6 +76,112 @@ std::string NumberCard::render(int line) const {
                 ss << "| " << number << "         |";
                 return ss.str();
                 break;
+            }*/
+            
+            ss << "| " << number << "         |";
+            return ss.str();
+            break;
+            
+        case 3: return "|           |";
+            
+        case 4:
+            switch(color)
+            {
+                case RED:
+                    return "|    RED    |";
+                    break;
+                case BLUE:
+                    return "|    BLUE   |";
+                    break;
+                case GREEN:
+                    return "|   GREEN   |";
+                    break;
+                case YELLOW:
+                    return "|  YELLOW   |";
+                    break;
+                default:
+                    return "|           |";
+                    break;
+                break;
+            }
+        /*case 3:
+            ss << "|     " << number << "     |";
+            return ss.str();
+            break;*/
+            
+        case 5: return "|           |";
+            
+        case 6:
+            
+            /*if(number > 9)
+            {
+                switch(number)
+                {
+                    case 10:
+                        return "|        +2 |";
+                        break;
+                    case 11:
+                        return "|      SKIP |";
+                        break;
+                    case 12:
+                        return "| ->      R |";
+                        break;
+                    case 13:
+                        return "|      RGBY |";
+                        break;
+                    default:
+                        return "|           |";
+                        break;
+                }
+            } else {
+                ss << "|         " << number << " |";
+                return ss.str();
+                break;
+            }*/
+            
+            ss << "|         " << number << " |";
+            return ss.str();
+            break;
+            
+        case 7: return "|___________|";
+            
+        default:
+            return " ";
+            
+    }
+    
+}
+
+
+std::string WildCard::render(int line) const {
+    
+    std::stringstream ss;
+    
+    switch(line) 
+    {
+        case 0: return ".___________.";
+        
+        case 1: return "|           |";
+        
+        case 2:
+            
+            switch(wildc)
+            {
+                case 10:
+                    return "| +2        |";
+                    break;
+                case 11:
+                    return "| SKIP      |";
+                    break;
+                case 12:
+                    return "| R     <-- |";
+                    break;
+                case 13:
+                    return "| WILD      |";
+                    break;
+                default:
+                    return "|           |";
+                    break;
             }
             
             /*ss << "| " << number << "         |";
@@ -108,30 +219,23 @@ std::string NumberCard::render(int line) const {
             
         case 6:
             
-            if(number > 9)
+            switch(wildc)
             {
-                switch(number)
-                {
-                    case 10:
-                        return "|        +2 |";
-                        break;
-                    case 11:
-                        return "|      SKIP |";
-                        break;
-                    case 12:
-                        return "| ->      R |";
-                        break;
-                    case 13:
-                        return "|      RGBY |";
-                        break;
-                    default:
-                        return "|           |";
-                        break;
-                }
-            } else {
-                ss << "|         " << number << " |";
-                return ss.str();
-                break;
+                case 10:
+                    return "|        +2 |";
+                    break;
+                case 11:
+                    return "|      SKIP |";
+                    break;
+                case 12:
+                    return "| -->     R |";
+                    break;
+                case 13:
+                    return "|      WILD |";
+                    break;
+                default:
+                    return "|           |";
+                    break;
             }
             
             /*ss << "|         " << number << " |";
@@ -159,5 +263,19 @@ bool NumberCard::play(Card* discard, GameState &gameState) {
         return false;
         
     }
-    
 }
+
+bool WildCard::play(Card* discard, GameState &gameState) {
+    
+    if(color == discard->getColor() || wildc == discard->getWildCard())
+    {
+        
+        return true;
+        
+    } else {
+        
+        return false;
+        
+    }
+}
+    

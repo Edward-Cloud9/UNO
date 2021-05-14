@@ -25,29 +25,57 @@ void buildDeck(std::vector<Card*> &deck)
     // Create Number Cards
     for(int c = RED; c < NUM_COLORS; c++)
     {
-        
-        for(int n = 0; n < WILD_CARDS; n++)
+        /*for(int n = 0; n < WILD_CARDS; n++)
         {
             
             Card* temp = new NumberCard((Color)c, n);
-            
+            deck.push_back(temp);
             deck.push_back(temp);
             
-            deck.push_back(temp);
-            
-            /*for(int n = 10; n < WILD_CARDS; n++)
+            for(int n = 10; n < WILD_CARDS; n++)
+            //for(int m = 10; m < WILD_CARDS; m++)
             {
                 Card* temp = new NumberCard((Color)c, n);
                 
                 deck.push_back(temp);
                 
                 //deck.push_back(temp);
-            }*/
+            }
+            
+        }*/
+        
+        for(int n = 0; n < 10; n++)
+        {
+            Card* temp = new NumberCard((Color)c, n);
+            
+            deck.push_back(temp);
+            
+            deck.push_back(temp);
+            
             
         }
         
-        
+        for(int w = 10; w < WILD_CARDS; w++)
+        {
+            Card* temp = new WildCard((Color)c,(WildC)w);
+            
+            deck.push_back(temp);
+           
+            deck.push_back(temp);
+        }
     }
+    
+    /*for(int c = RED; c < NUM_COLORS; c++)
+    {
+        for(int m = 10; m < WILD_CARDS; m++)
+        {
+            Card* temp = new WildCard((Color)c, m);
+            
+            deck.push_back(temp);
+            
+            //deck.push_back(temp);
+        }
+    }*/
 }
 
 void shuffleDeck(std::vector<Card*> &deck)
@@ -155,6 +183,8 @@ void takeTurn(std::vector<Card*> &deck, std::vector<Card*> &hand, std::vector<Ca
     
     std::cout << "Player " << gameState.currentPlayerIndex << "'s turn." << std::endl;
     
+    
+    
     // TODO: Draw cards if necessary (draw 2 card)
     drawCards(deck, hand, gameState.numCardsToDraw);
     
@@ -206,6 +236,34 @@ void takeTurn(std::vector<Card*> &deck, std::vector<Card*> &hand, std::vector<Ca
                     
                     // Remove card in hand at position "input"
                     
+                    // ->-> IF STATEMENT HERE <-<-
+                    switch(temp->getWildCard())
+                    {
+                        case PLUS2:
+                            gameState.numCardsToDraw = 2;
+                            break;
+                        case SKIP:
+                            gameState.skipTurn = true;
+                            break;
+                        case REVERSE:
+                            gameState.turnDirection = RIGHT;
+                            break;
+                        case WILD:
+                            char rgby;
+                            std::cout << "Choose the color [R G B Y]: ";
+                            std::cin >> rgby;
+                            switch(cin)
+                                {
+                                    case 'R' || 'r':
+                                        std::cout << "You Choose RED";
+                                        temp->setColor(Color c) == RED;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                        default: 
+                            break;
+                    }
                     
                 } else {
                     
@@ -215,7 +273,7 @@ void takeTurn(std::vector<Card*> &deck, std::vector<Card*> &hand, std::vector<Ca
                     
                     return;
                 }
-            
+                
             }else if(input == i){
                 
                 drawCards(deck, hand, 1);
@@ -233,6 +291,10 @@ void takeTurn(std::vector<Card*> &deck, std::vector<Card*> &hand, std::vector<Ca
         
     }
     
+    if(hand.size() == 0)
+    {
+        gameState.winner = false;
+    }
 }
 
 int main()
@@ -257,12 +319,19 @@ int main()
     populateHands(deck, hands);
     drawCards(deck, discard, 1);
     
-    while(1 /* TODO: Check for winner (no cards in hand)*/)
+    while(gameState.winner != false)/* TODO: Check for winner (no cards in hand) --DONE--*/
     {
         
         takeTurn(deck, hands.at(gameState.currentPlayerIndex), discard, gameState);
         
+        /*if(std::vector<std::vector<Card*>> hands(NUM_PLAYERS) == 0)
+        {
+            return 0;
+        }*/
+        
     }
+    
+    std::cout << "UNO!" << std::endl;
     
     return 0;
     

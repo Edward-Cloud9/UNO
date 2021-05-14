@@ -7,7 +7,7 @@
 
 enum Color{RED, BLUE, GREEN, YELLOW, NUM_COLORS};
 
-enum WildC{PLUS2 = 10, SKIP = 11, REVERSE = 12, WILD4 = 13, WILD_CARDS};
+enum WildC{PLUS2 = 10, SKIP = 11, REVERSE = 12, WILD = 13, WILD_CARDS};
 
 class Card
 {
@@ -25,6 +25,8 @@ class Card
     Color getColor() const;
     
     int getNumber() const;
+    
+    int getWildCard() const;
     
     void setColor(Color c);
     
@@ -45,7 +47,7 @@ class NumberCard : public Card
     NumberCard(Color c, int n);
     
     //NumberCard(Color c, int n, WildC w);
-    NumberCard(WildC w, int m);
+    //NumberCard(WildC w, int m);
     
     
     std::string render(int) const;
@@ -53,6 +55,19 @@ class NumberCard : public Card
     bool play(Card*, GameState&);
     
 };
+
+class WildCard : public Card
+{
+    public:
+    
+    WildCard(Color c, WildC w);
+    
+    std::string render(int) const;
+    
+    bool play(Card*, GameState&);
+    
+};
+
 
 
 #endif

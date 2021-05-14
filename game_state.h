@@ -24,6 +24,7 @@ class GameState
     
     bool skipTurn = false;
     
+    bool winner = true;
 };
 
 #endif
