@@ -28,6 +28,8 @@ class Card
     
     int getWildCard() const;
     
+    int setColorbyWild(int x) const;
+    
     void setColor(Color c);
     
     void setNumber(int n);

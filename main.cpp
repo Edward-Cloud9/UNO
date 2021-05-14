@@ -249,16 +249,30 @@ void takeTurn(std::vector<Card*> &deck, std::vector<Card*> &hand, std::vector<Ca
                             gameState.turnDirection = RIGHT;
                             break;
                         case WILD:
-                            char rgby;
-                            std::cout << "Choose the color [R G B Y]: ";
+                            int rgby;
+                            std::cout << "Choose the color [1: RED 2: BLUE 3: GREEN 4: YELLOW]: ";
                             std::cin >> rgby;
-                            switch(cin)
+                            switch(rgby)
                                 {
-                                    case 'R' || 'r':
+                                    case 1:
                                         std::cout << "You Choose RED";
-                                        temp->setColor(Color c) == RED;
+                                        temp->setColorbyWild(1);
+                                        break;
+                                    case 2:
+                                        std::cout << "You Choose BLUE";
+                                        temp->setColorbyWild(2);
+                                        break;
+                                    case 3:
+                                        std::cout << "You Choice GREEN";
+                                        temp->setColorbyWild(3);
+                                        break;
+                                    case 4:
+                                        std::cout << "You Choice YELLOW";
+                                        temp->setColorbyWild(4);
                                         break;
                                     default:
+                                        std::cout << "Wrong input! Default choice is RED";
+                                        temp->setColorbyWild(1);
                                         break;
                                 }
                         default: 

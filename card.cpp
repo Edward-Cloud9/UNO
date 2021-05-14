@@ -12,6 +12,26 @@ int Card::getWildCard() const {
     return wildc;
 }
 
+int Card::setColorbyWild(int x) const {
+    
+    if(x = 1)
+    {
+        return Color(1);
+    }
+    else if(x = 2)
+    {
+        return Color(2);
+    }
+    else if(x = 3)
+    {
+        return Color(3);
+    }
+    else if(x = 4)
+    {
+        return Color(4);
+    }
+}
+
 void Card::setColor(Color c) {
     color = c;
 }
